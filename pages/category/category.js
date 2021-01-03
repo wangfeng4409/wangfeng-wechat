@@ -1,66 +1,55 @@
 // pages/category/category.js
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-
+    categories: [
+      { title: '衣服' },
+      { title: '帽子' },
+      { title: '鞋子' },
+      { title: '上衣' },
+      { title: '袜子' },
+      { title: '短裤' },
+    ],
+    categoryData: {
+      subcategories: [
+        {
+          image: `/assets/images/home/goods/pop.jpeg`,
+          title: '商品展示'
+        },
+        {
+          image: `/assets/images/home/goods/pop.jpeg`,
+          title: '商品展示'
+        },
+        {
+          image: `/assets/images/home/goods/pop.jpeg`,
+          title: '商品展示'
+        }
+      ],
+      categoryDetail: []
+    },
+    currentIndex: 0
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-
+  onLoad() {
+    const categoryData = this.data.categoryData
+    for (let i = 0; i < 40; i++) {
+      categoryData.categoryDetail.push(
+        {
+          image: `/assets/images/home/goods/new.jpeg`,
+          title: '汪冯的商品展示',
+          price: 120,
+          cfav: 88,
+          iid: 1
+        }
+      )
+    }
+    this.setData({
+      categoryData: categoryData
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+  menuClick(e) {
+    // 1.改变当前的currentIndex
+    const currentIndex = e.detail.currentIndex
+    this.setData({
+      currentIndex
+    })
   }
 })

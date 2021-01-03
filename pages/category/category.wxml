@@ -1,4 +1,7 @@
 <!--pages/category/category.wxml-->
-<view>
-  分类
+<view class="category">
+  <w-menu categories="{{categories}}"
+          bind:menuclick="menuClick"/>
+  <w-content subcategories="{{categoryData.subcategories}}"
+             categoryDetail="{{categoryData.categoryDetail}}"/>
 </view>

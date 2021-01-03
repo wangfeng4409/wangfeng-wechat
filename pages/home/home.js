@@ -95,6 +95,10 @@ Page({
   },
   // 返回到顶部事件
   onBackTop() {
+    // wx.pageScrollTo({
+    //   scrollTop: 0,
+    //   duration: 0
+    // })
     this.setData({
       showBackTop: false,
       topPosition: 0
