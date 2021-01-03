@@ -1,0 +1,15 @@
+/* pages/home/home.wxss */
+.home {
+  height: 100%;
+}
+.home .content {
+  height: 100%;
+}
+.home .tab-controls-temp {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 9;
+  background: #fff;
+}

@@ -1,0 +1,15 @@
+<!--pages/profile/childCpns/w-list-view/w-list-view.wxml-->
+<view class="list-view">
+  <block wx:for="{{infos}}" wx:key="index">
+    <view wx:if="{{item.info==='我的购物车'}}" class="list-item">
+      <navigator url="/pages/cart/cart" open-type="switchTab" hover-class="list-view-hover">
+        <image class="list-item-image" src="/assets/images/profile/{{item.icon}}"/>
+        <text class="list-item-text">{{item.info}}</text>
+      </navigator>
+    </view>
+    <view wx:else class="list-item">
+      <image class="list-item-image" src="/assets/images/profile/{{item.icon}}"/>
+      <text class="list-item-text">{{item.info}}</text>
+    </view>
+  </block>
+</view>
