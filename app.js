@@ -2,7 +2,17 @@
 const TOKEN = 'token'
 App({
   globalData: {
-    token: ''
+    token: '',
+    cartList: [
+      {
+        imageURL: '/assets/images/home/goods/sell.jpeg',
+        title: '汪冯',
+        desc: '裤子',
+        price: 12,
+        count: 1,
+        checked: false
+      }
+    ]
   },
   onLaunch() {
     // 1、先从缓存中取出token
@@ -14,6 +24,22 @@ App({
     } else {
       // 没有token进行登录操作
       this.login()
+    }
+  },
+  addToCart(obj) {
+    // 1.判断是否已经添加进来
+    const oldInfo = this.globalData.cartList.find((item) => item.iid === obj.iid)
+    if (oldInfo) {
+      oldInfo.count += 1
+    } else {
+      obj.count = 1
+      obj.checked = true
+      this.globalData.cartList.push(obj)
+    }
+
+    // 2.购物车回调
+    if (this.addCartCallback) {
+      this.addCartCallback()
     }
   },
   check_token() {

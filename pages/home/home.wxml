@@ -16,7 +16,7 @@
     bindscroll="scrollPosition"
   >
     <w-swiper images="{{banners}}" />
-    <w-recommend recommends="{{recommends}}" />
+    <w-recommend recommends="{{recommends}}" bind:imageLoad="onImageLoad" />
     <w-feature />
     <w-tab-control class="tab-controls" titles="{{titles}}" bind:tabclick="tabClick" />
     <w-goods goodslist="{{goods[currentType].list}}" />

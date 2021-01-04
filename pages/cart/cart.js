@@ -1,24 +1,46 @@
 // pages/cart/cart.js
+const app = getApp()
 Page({
   data: {
-    cartList: [
-      {
-        imageURL: '/assets/images/home/goods/sell.jpeg',
-        title: '汪冯',
-        desc: '裤子',
-        price: 12,
-        count: 1,
-        checked: false
-      }
-    ],
+    cartList: [],
     isSelectAll: false,
     totalPrice: 0,
     totalCounter: 0
   },
+  onLoad() {
+    // 1.第一次加载数据
+    this.setData({
+      cartList: app.globalData.cartList
+    })
+
+    // 2.设置回调
+    app.addCartCallback = () => {
+      this.setData({
+        cartList: app.globalData.cartList
+      })
+      this.changeData()
+    }
+
+    // 3.设置修改某个商品的回调
+    app.changeGoodsState = (index, goods) => {
+      // 1.修改某一项的选中状态
+      this.setData({
+        [`cartList[${index}]`]: goods
+      })
+
+      // 2.修改全部选中的状态
+      const selectAll = !this.data.cartList.find(item => !item.checked)
+      this.setData({
+        isSelectAll: selectAll
+      })
+      this.changeData()
+    }
+  },
   onShow() {
     wx.setNavigationBarTitle({
-      title: `购物车(0)`,
+      title: `购物车(${this.data.cartList.length})`,
     })
+    this.changeData()
   },
   onSelectAll() {
     // 1.判断是否是全部选中
@@ -39,7 +61,6 @@ Page({
         isSelectAll: true
       })
     }
-    this.changeData()
   },
   changeData() {
     // 1.获取所有选中数据

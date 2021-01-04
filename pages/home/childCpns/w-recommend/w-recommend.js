@@ -5,5 +5,10 @@ Component({
       type: Array,
       value: []
     }
+  },
+  methods: {
+    onImageLoad() {
+      this.triggerEvent('imageLoad')
+    }
   }
 })

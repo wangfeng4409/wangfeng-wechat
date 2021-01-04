@@ -5,7 +5,11 @@
     wx:key="index"
   >
     <view class="recommend-item">
-      <image class="recommend-item-image" src="{{item.image}}" />
+      <image
+        class="recommend-item-image"
+        src="{{item.image}}"
+        bindload="onImageLoad"
+      />
       <view>
         <text class="recommend-item-text">{{item.title}}</text>
       </view>

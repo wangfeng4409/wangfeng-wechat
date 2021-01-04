@@ -23,8 +23,15 @@ Page({
     },
     currentType: 'pop',
     topPosition: 0,
+    tabControlTop: 0,// 页面中的tab距顶部的距离
+    topPositionObj: {
+      pop: 0,
+      new: 0,
+      sell: 0
+    },
     showBackTop: false,
-    showTabControl: false
+    showTabControl: false,// 顶部是否显示tab
+    flag: true
   },
   onLoad() {
     // this.fetchData()
@@ -69,7 +76,21 @@ Page({
     this.setData({
       currentType: currentType
     })
-    console.log(this.selectComponent('.tab-controls'), '父级拿到子组件中的数据')
+
+    // 切换tab时重新设置滚轮的高度
+    if (this.data.showTabControl) {
+      if (this.data.topPositionObj[this.data.currentType] !== 0) {
+        this.setData({
+          topPosition: this.data.topPositionObj[this.data.currentType]
+        })
+      } else {
+        this.setData({
+          topPosition: this.data.tabControlTop
+        })
+      }
+    }
+    
+    // console.log(this.selectComponent('.tab-controls'), '父级拿到子组件中的数据')
     this.selectComponent('.tab-controls').setCurrentIndex(e.detail.index)
     this.selectComponent('.tab-controls-temp').setCurrentIndex(e.detail.index)
   },
@@ -84,13 +105,28 @@ Page({
     })
 
     wx.createSelectorQuery().select('.tab-controls').boundingClientRect((rect) => {
-      const show = rect.top > 0
-      if (Math.floor(rect.top) === 0) {
-        console.log(e, 'e')
+      console.log(rect, 'opo')
+      if (rect.top < 0) {
+        let topPositionObj = this.data.topPositionObj
+        topPositionObj[this.data.currentType] = e.detail.scrollTop
+        this.setData({
+          topPositionObj: topPositionObj
+        })
       }
+
+      const show = rect.top > 0
       this.setData({
         showTabControl: !show
       })
+    }).exec()
+  },
+  onImageLoad() {
+    wx.createSelectorQuery().select('.tab-controls').boundingClientRect((rect) => {
+      if (this.data.tabControlTop === 0) {
+        this.setData({
+          tabControlTop: rect.top
+        })
+      }
     }).exec()
   },
   // 返回到顶部事件
