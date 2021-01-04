@@ -105,7 +105,6 @@ Page({
     })
 
     wx.createSelectorQuery().select('.tab-controls').boundingClientRect((rect) => {
-      console.log(rect, 'opo')
       if (rect.top < 0) {
         let topPositionObj = this.data.topPositionObj
         topPositionObj[this.data.currentType] = e.detail.scrollTop
